@@ -6,7 +6,16 @@ import os
 
 # ⚠️ 重要：填入你的 API Key
 # 最佳实践：实际项目中建议放在环境变量里，这里为了学习方便直接填写
-dashscope.api_key = "sk-7a3e8bda0218419a8ab9f95590458479" 
+# 从环境变量读取 Secret (云端自动注入)，如果没有则尝试使用本地备用 Key (仅本地调试用)
+api_key = os.getenv("DASHSCOPE_API_KEY")
+
+if api_key:
+    dashscope.api_key = api_key
+else:
+    # 如果云端没读到，说明你在本地运行，可以临时填在这里测试，但上传 GitHub 前最好注释掉
+    dashscope.api_key = "你的本地备用Key_可选"
+
+#dashscope.api_key = "API_KEY" 
 
 # --- 页面配置 ---
 st.set_page_config(
